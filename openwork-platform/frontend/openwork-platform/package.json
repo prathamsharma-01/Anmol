@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "name": "openwork-platform",
+  "version": "0.0.0",
+  "workspaces": [
+    "frontend/*",
+    "frontend/*/web",
+    "frontend/shared-ui"
+  ],
+  "scripts": {
+    "start:customer-app": "cd frontend/customer-app && npm start",
+    "start:delivery-shell": "cd frontend/delivery-app/web && npm start",
+    "start:customer-service-shell": "cd frontend/customer-service-dashboard/web && npm start",
+    "start:seller-shell": "cd frontend/seller-dashboard/web && npm start",
+    "start:all": "concurrently \"npm run start:customer-app\" \"npm run start:delivery-shell\" \"npm run start:seller-shell\" \"npm run start:customer-service-shell\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}

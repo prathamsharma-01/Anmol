@@ -1,0 +1,359 @@
+/* Location Selector Styles - QuikRy Red Theme */
+
+.location-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.location-modal {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.location-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #dc2626; /* QuikRy Red */
+  color: white;
+  flex-shrink: 0;
+}
+
+.location-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.location-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  line-height: 1;
+}
+
+.location-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Search Section */
+.location-search {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  flex-shrink: 0;
+}
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  transition: border-color 0.2s;
+}
+
+.search-input-container:focus-within {
+  border-color: #dc2626; /* QuikRy Red */
+  background: white;
+}
+
+.search-icon {
+  padding: 12px 16px;
+  color: #6c757d;
+  font-size: 16px;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 12px 8px;
+  font-size: 16px;
+  outline: none;
+  color: #333;
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+.clear-search {
+  background: none;
+  border: none;
+  color: #6c757d;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.clear-search:hover {
+  color: #dc2626;
+}
+
+/* Content */
+.location-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+.location-section {
+  padding: 0 24px;
+  margin-bottom: 24px;
+}
+
+.location-section h3 {
+  margin: 20px 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Location Options */
+.location-option {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background-color 0.2s;
+  margin-bottom: 8px;
+}
+
+.location-option:hover {
+  background: #f8f9fa;
+}
+
+.location-option:active {
+  background: #e9ecef;
+}
+
+.location-icon {
+  font-size: 20px;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.location-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.location-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.location-subtitle {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* Current Location Button */
+.detect-location-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 2px solid #dc2626; /* QuikRy Red */
+  background: white;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.2s;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.detect-location-btn:hover:not(:disabled) {
+  background: #fef2f2;
+  border-color: #b91c1c;
+}
+
+.detect-location-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.detect-location-btn .location-title {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* Current Location Selected */
+.current-location {
+  border: 2px solid #10b981;
+  background: #f0fdf4;
+}
+
+.current-location:hover {
+  background: #ecfdf5;
+  border-color: #059669;
+}
+
+.current-location .location-title {
+  color: #059669;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #dc2626;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Search Loading */
+.search-loading {
+  padding: 16px 24px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
+/* No Results */
+.no-results {
+  padding: 40px 24px;
+  text-align: center;
+  color: #999;
+}
+
+.no-results-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .location-overlay {
+    padding: 10px;
+    align-items: flex-end;
+  }
+
+  .location-modal {
+    max-height: 90vh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .location-header {
+    padding: 16px 20px;
+  }
+
+  .location-search {
+    padding: 16px 20px;
+  }
+
+  .location-section {
+    padding: 0 20px;
+  }
+
+  .location-option {
+    padding: 12px;
+  }
+
+  .detect-location-btn {
+    padding: 12px;
+  }
+}
+
+/* Scrollbar Styling */
+.location-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.location-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.location-content::-webkit-scrollbar-thumb {
+  background: #dc2626;
+  border-radius: 3px;
+}
+
+.location-content::-webkit-scrollbar-thumb:hover {
+  background: #b91c1c;
+}

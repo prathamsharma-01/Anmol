@@ -1,0 +1,52 @@
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.dashboard-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Hover effects */
+.dashboard-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dashboard-tab:hover {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+/* Smooth transitions */
+.dashboard-modal {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar styling */
+.dashboard-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dashboard-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.dashboard-content::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.dashboard-content::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

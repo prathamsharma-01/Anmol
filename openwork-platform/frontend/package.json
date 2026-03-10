@@ -1,0 +1,25 @@
+{
+  "name": "openwork-platform",
+  "version": "1.0.0",
+  "description": "OpenWork Platform - A comprehensive marketplace solution",
+  "main": "index.js",
+  "workspaces": [
+    "openwork-platform/frontend/*",
+    "openwork-platform/backend/*"
+  ],
+  "scripts": {
+    "dev": "cd openwork-platform/frontend/customer-app && npm run start",
+    "dev:customer": "cd openwork-platform/frontend/customer-app && npm run start",
+    "dev:seller": "cd openwork-platform/frontend/seller-dashboard && npm run start",
+    "dev:delivery": "cd openwork-platform/frontend/delivery-app && npm run start",
+    "dev:customer-service": "cd openwork-platform/frontend/customer-service-dashboard && npm run start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "marketplace",
+    "ecommerce",
+    "platform"
+  ],
+  "author": "",
+  "license": "ISC"
+}
