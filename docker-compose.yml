@@ -1,0 +1,124 @@
+services:
+  # ==========================================
+  # DATABASE
+  # ==========================================
+  mongo:
+    image: mongo:7
+    container_name: quikry-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - quikry-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # ==========================================
+  # BACKEND API
+  # ==========================================
+  backend:
+    build:
+      context: ./openwork-platform/backend/api-gateway
+      dockerfile: Dockerfile
+    container_name: quikry-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - MONGODB_URI=mongodb://mongo:27017
+      - RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID:-rzp_test_placeholder}
+      - RAZORPAY_KEY_SECRET=${RAZORPAY_KEY_SECRET:-placeholder_secret}
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - quikry-network
+    restart: unless-stopped
+
+  # ==========================================
+  # FRONTEND - Customer App (Port 3000)
+  # ==========================================
+  customer-app:
+    build:
+      context: ./openwork-platform/frontend/customer-app
+      dockerfile: Dockerfile
+    container_name: quikry-customer-app
+    ports:
+      - "3000:3000"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - quikry-network
+    restart: unless-stopped
+
+  # ==========================================
+  # FRONTEND - Delivery App (Port 5174)
+  # ==========================================
+  delivery-app:
+    build:
+      context: ./openwork-platform/frontend/delivery-app/web
+      dockerfile: Dockerfile
+    container_name: quikry-delivery-app
+    ports:
+      - "5174:5174"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - quikry-network
+    restart: unless-stopped
+
+  # ==========================================
+  # FRONTEND - Seller Dashboard (Port 5175)
+  # ==========================================
+  seller-dashboard:
+    build:
+      context: ./openwork-platform/frontend/seller-dashboard/web
+      dockerfile: Dockerfile
+    container_name: quikry-seller-dashboard
+    ports:
+      - "5175:5175"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - quikry-network
+    restart: unless-stopped
+
+  # ==========================================
+  # FRONTEND - Customer Service Dashboard (Port 5176)
+  # ==========================================
+  customer-service:
+    build:
+      context: ./openwork-platform/frontend/customer-app/customer-service-dashboard/web
+      dockerfile: Dockerfile
+    container_name: quikry-customer-service
+    ports:
+      - "5176:5176"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - quikry-network
+    restart: unless-stopped
+
+# ==========================================
+# VOLUMES & NETWORKS
+# ==========================================
+volumes:
+  mongo-data:
+    driver: local
+
+networks:
+  quikry-network:
+    driver: bridge
