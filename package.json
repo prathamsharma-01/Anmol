@@ -12,10 +12,8 @@
     "start:customer": "cd openwork-platform/frontend/customer-app && npm start",
     "start:delivery": "cd openwork-platform/frontend/delivery-app/web && npm start -- --port 5174",
     "start:seller": "cd openwork-platform/frontend/seller-dashboard/web && npm start -- --port 5175",
-    "start:customer-service": "cd openwork-platform/frontend/customer-service-dashboard/web && npm start -- --port 5176",
     "start:backend": "cd openwork-platform/backend/api-gateway && npm start",
-    "start:all": "concurrently -k -n customer,delivery,seller,csr -c blue,magenta,green,yellow \"npm run start:customer\" \"npm run start:delivery\" \"npm run start:seller\" \"npm run start:customer-service\"",
-    "start:full": "concurrently -k -n backend,customer,delivery,seller,csr -c red,blue,magenta,green,yellow \"npm run start:backend\" \"npm run start:customer\" \"npm run start:delivery\" \"npm run start:seller\" \"npm run start:customer-service\"",
+    "start:web": "concurrently -k -n backend,customer,delivery,seller -c red,blue,magenta,green \"npm run start:backend\" \"npm run start:customer\" \"npm run start:delivery\" \"npm run start:seller\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

@@ -1,0 +1,98 @@
+digraph openwork {
+  rankdir=TB;
+  node [shape=folder, fontsize=10];
+
+  root [label="openwork"];
+
+  # top-level files
+  f1 [label="AGENT-MANAGEMENT-SYSTEM.md", shape=note];
+  f2 [label="FOLDER-MIGRATION.md", shape=note];
+  f3 [label="GITHUB-READY.md", shape=note];
+  f4 [label="IMAGE-ASSETS-SUMMARY.md", shape=note];
+  f5 [label="IMPLEMENTATION-SUMMARY.md", shape=note];
+  f6 [label="INVENTORY-SYNC-IMPLEMENTATION.md", shape=note];
+  f7 [label="LOCATION-SERVICE-SUMMARY.md", shape=note];
+  f8 [label="MIGRATION-VITE.md", shape=note];
+  f9 [label="package.json", shape=note];
+  f10 [label="QUICK-START-GUIDE.md", shape=note];
+  f11 [label="README.md", shape=note];
+  f12 [label="REPO-GRAPH-README.md", shape=note];
+  f13 [label="repo-structure.dot", shape=note];
+  f14 [label="REPO-STRUCTURE.mmd", shape=note];
+  f15 [label="SECURITY.md", shape=note];
+  f16 [label="start-all-dev.sh", shape=note];
+  f17 [label="start-all.sh", shape=note];
+
+  root -> {f1 f2 f3 f4 f5 f6 f7 f8 f9 f10 f11 f12 f13 f14 f15 f16 f17}
+
+  # mobile
+  mobile [label="mobile", shape=folder];
+  mobile_app [label="customer-app (mobile)", shape=folder];
+  mobile_app_files [label="App.js, app.json, package.json, babel.config.js, assets/", shape=note];
+  root -> mobile;
+  mobile -> mobile_app;
+  mobile_app -> mobile_app_files;
+
+  # openwork-platform
+  op [label="openwork-platform", shape=folder];
+  root -> op;
+
+  op_readme [label="README.md", shape=note];
+  op_pkg [label="package.json", shape=note];
+  op_setup [label="setup-delivery-data.js, start-delivery-system.js", shape=note];
+  op_backend [label="backend", shape=folder];
+  op_frontend [label="frontend", shape=folder];
+  op -> {op_readme op_pkg op_setup op_backend op_frontend}
+
+  # backend services (high level)
+  backend_dir [label="openwork-platform/backend", shape=folder];
+  op_backend -> backend_dir;
+  backend_dir -> {api_gateway user_service catalog_service database delivery_service inventory_service notification_service order_service payment_service analytics_service}
+  api_gateway [label="api-gateway", shape=folder];
+  user_service [label="user-service", shape=folder];
+  catalog_service [label="catalog-service", shape=folder];
+  database [label="database", shape=folder];
+  delivery_service [label="delivery-service", shape=folder];
+  inventory_service [label="inventory-service", shape=folder];
+  notification_service [label="notification-service", shape=folder];
+  order_service [label="order-service", shape=folder];
+  payment_service [label="payment-service", shape=folder];
+  analytics_service [label="analytics-service", shape=folder];
+
+  # database files
+  db_init [label="init-mongo.js, add-original-products.js, update-images.js", shape=note];
+  database -> db_init;
+
+  # frontend apps (high level)
+  frontend_root [label="openwork-platform/frontend", shape=folder];
+  op_frontend -> frontend_root;
+
+  fa_customer [label="customer-app", shape=folder];
+  fa_customer_files [label="App.js, index.html, package.json, vite.config.js, src/", shape=note];
+  fa_delivery [label="delivery-app", shape=folder];
+  fa_seller [label="seller-dashboard", shape=folder];
+  fa_customer_service [label="customer-service-dashboard", shape=folder];
+  shared_ui [label="shared-ui", shape=folder];
+
+  frontend_root -> {fa_customer fa_delivery fa_seller fa_customer_service shared_ui}
+  fa_customer -> fa_customer_files
+
+  # top-level frontend folder (also present)
+  root_frontend [label="frontend/", shape=folder];
+  root -> root_frontend;
+  root_frontend -> { "package.json" [label="package.json", shape=note] , README [label="README.md", shape=note], customer_app [label="customer-app/ (web)", shape=folder] }
+
+  # shared-ui details note
+  shared_note [label="shared-ui/src/* (components) — imported via relative paths by apps", shape=note];
+  shared_ui -> shared_note;
+
+  # other directories
+  image_dir [label="image/", shape=folder];
+  repo_docs [label=".github/ (copilot-instructions.md)", shape=folder];
+  root -> image_dir;
+  root -> repo_docs;
+
+  # small legend
+  legend [label="Note: many backend folders are stubs. Vite apps: entry src/main.jsx. shared-ui uses relative imports.", shape=note, fontsize=9];
+  root -> legend [style=invis];
+}

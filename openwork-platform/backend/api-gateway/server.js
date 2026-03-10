@@ -224,41 +224,14 @@ app.post('/api/auth/register', async (req, res) => {
 
 // Password validation function
 function validatePassword(password) {
-  if (!password || password.length < 8) {
+  if (!password || password.length < 6) {
     return {
       isValid: false,
-      message: 'Password must be at least 8 characters long'
+      message: 'Password must be at least 6 characters long'
     };
   }
 
-  if (!/[A-Z]/.test(password)) {
-    return {
-      isValid: false,
-      message: 'Password must contain at least one uppercase letter'
-    };
-  }
-
-  if (!/[a-z]/.test(password)) {
-    return {
-      isValid: false,
-      message: 'Password must contain at least one lowercase letter'
-    };
-  }
-
-  if (!/[0-9]/.test(password)) {
-    return {
-      isValid: false,
-      message: 'Password must contain at least one number'
-    };
-  }
-
-  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
-    return {
-      isValid: false,
-      message: 'Password must contain at least one special character (!@#$%^&*)'
-    };
-  }
-
+  // Simple validation - just check length
   return {
     isValid: true,
     message: 'Password is valid'

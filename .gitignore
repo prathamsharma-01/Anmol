@@ -29,3 +29,17 @@ Thumbs.db
 dist/
 build/
 *.log
+
+
+
+# Expo and React Native specifics
+.expo/
+.expo-shared/
+web-build/
+node_modules/
+
+# Android/iOS specific builds
+android/
+ios/
+*.jks
+*.p8
