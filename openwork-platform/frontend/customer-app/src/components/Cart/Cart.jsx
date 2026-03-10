@@ -7,13 +7,45 @@ const Cart = ({ isOpen, onClose, cartItems = [], setCartItems, user }) => {
   const [userAddresses, setUserAddresses] = useState([]);
 
   useEffect(() => {
-    if (user && user.addresses) {
+    // Reload user data whenever cart opens to get latest addresses
+    if (isOpen && user && user._id) {
+      const loadLatestAddresses = async () => {
+        try {
+          const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+          const response = await fetch(`${API_URL}/api/user/addresses/${user._id}`);
+          const data = await response.json();
+          
+          if (data.success && data.addresses) {
+            setUserAddresses(data.addresses);
+            console.log('✅ Loaded latest addresses:', data.addresses.length);
+            
+            // Find default address or use first one
+            const defaultIndex = data.addresses.findIndex(addr => addr.isDefault);
+            setSelectedAddressIndex(defaultIndex >= 0 ? defaultIndex : 0);
+          }
+        } catch (error) {
+          console.error('Error loading addresses:', error);
+          // Fallback to user object addresses
+          if (user.addresses) {
+            setUserAddresses(user.addresses);
+            const defaultIndex = user.addresses.findIndex(addr => addr.isDefault);
+            setSelectedAddressIndex(defaultIndex >= 0 ? defaultIndex : 0);
+          }
+        }
+      };
+      
+      loadLatestAddresses();
+    } else if (user && user.addresses) {
+      console.log('User addresses loaded:', user.addresses);
       setUserAddresses(user.addresses);
       // Find default address or use first one
       const defaultIndex = user.addresses.findIndex(addr => addr.isDefault);
       setSelectedAddressIndex(defaultIndex >= 0 ? defaultIndex : 0);
+      console.log('Selected address index:', defaultIndex >= 0 ? defaultIndex : 0);
+    } else {
+      console.log('No addresses found for user');
     }
-  }, [user]);
+  }, [isOpen, user]);
 
   if (!isOpen) return null;
 
@@ -61,7 +93,8 @@ const Cart = ({ isOpen, onClose, cartItems = [], setCartItems, user }) => {
 
     // 🔥 STEP 1: Validate stock availability before payment
     try {
-      const stockCheckResponse = await fetch('http://localhost:8000/api/products/check-stock', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const stockCheckResponse = await fetch(`${API_URL}/api/products/check-stock`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -180,6 +213,7 @@ const Cart = ({ isOpen, onClose, cartItems = [], setCartItems, user }) => {
       // Payment successful - Save order to database
       try {
         const selectedAddress = userAddresses[selectedAddressIndex];
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
         
         const orderSaveData = {
           user_id: user._id,
@@ -214,7 +248,7 @@ const Cart = ({ isOpen, onClose, cartItems = [], setCartItems, user }) => {
           }
         };
 
-        const saveResponse = await fetch('http://localhost:8000/api/orders/save', {
+        const saveResponse = await fetch(`${API_URL}/api/orders/save`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

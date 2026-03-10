@@ -81,7 +81,8 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/login', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -106,7 +107,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error('Login error:', error);
-      setError('Network error. Please check if the server is running.');
+      setError('Network error. Please check if backend server is running on port 8000.');
     } finally {
       setIsLoading(false);
     }

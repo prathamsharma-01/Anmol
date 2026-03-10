@@ -21,7 +21,15 @@ import { icons, categoryImages } from './assets/images.js';
 function HomePage() {
   const navigate = useNavigate();
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    // Load cart from localStorage on initial render
+    try {
+      const savedCart = localStorage.getItem('quikry_cart');
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (e) {
+      return [];
+    }
+  });
   const [pincode, setPincode] = useState('136118');
   const [deliveryEstimate, setDeliveryEstimate] = useState('13');
   const [showLocationModal, setShowLocationModal] = useState(false);
@@ -64,6 +72,15 @@ function HomePage() {
       setSearchResults([])
     } finally { setSearchLoading(false) }
   }
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem('quikry_cart', JSON.stringify(cartItems));
+    } catch (e) {
+      console.error('Error saving cart:', e);
+    }
+  }, [cartItems]);
 
   // Load saved pincode from localStorage
   useEffect(() => {
