@@ -55,18 +55,20 @@
 
 .product-card {
   flex: 0 0 160px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border: 2px solid rgba(99, 102, 241, 0.12);
+  border-radius: 20px;
   overflow: hidden;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.08);
 }
 
 .product-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
+  box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2), 0 8px 30px rgba(139, 92, 246, 0.15);
+  transform: translateY(-10px) scale(1.03);
+  border-color: rgba(99, 102, 241, 0.3);
 }
 
 .product-image {
@@ -167,22 +169,23 @@
 }
 
 .add-btn {
-  background: #fff;
-  color: #0c831f;
-  border: 1px solid #0c831f;
-  padding: 6px 12px;
-  border-radius: 6px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 12px;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
 }
 
 .add-btn:hover {
-  background: #0c831f;
-  color: #fff;
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
 }
 
 .add-btn:active {
@@ -210,10 +213,11 @@
 .quantity-controls {
   display: flex;
   align-items: center;
-  background: #0c831f;
-  border-radius: 6px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
   overflow: hidden;
-  height: 30px;
+  height: 32px;
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
 }
 
 .qty-btn {

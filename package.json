@@ -8,11 +8,12 @@
     "openwork-platform/backend/*"
   ],
   "scripts": {
-    "dev": "npm run start:customer",
+    "dev": "npm run start:all",
+    "start:all": "concurrently -k -n backend,frontend -c red,blue \"npm run start:backend\" \"npm run start:customer\"",
     "start:customer": "cd openwork-platform/frontend/customer-app && npm start",
     "start:delivery": "cd openwork-platform/frontend/delivery-app/web && npm start -- --port 5174",
     "start:seller": "cd openwork-platform/frontend/seller-dashboard/web && npm start -- --port 5175",
-    "start:backend": "cd openwork-platform/backend/api-gateway && npm start",
+    "start:backend": "cd openwork-platform/backend/api-gateway && node server.js",
     "start:web": "concurrently -k -n backend,customer,delivery,seller -c red,blue,magenta,green \"npm run start:backend\" \"npm run start:customer\" \"npm run start:delivery\" \"npm run start:seller\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
